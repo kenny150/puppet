@@ -3,3 +3,7 @@ node 'puppet-client' {
 	#package { 'nginx':      ensure	=> installed, }
 	include nginx
 }
+node 'puppet-client2' { 
+	include nginx
+
+}
