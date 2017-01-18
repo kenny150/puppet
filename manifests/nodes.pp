@@ -1,4 +1,7 @@
 node 'puppet-client' { 
+	
+	$site_name = 'cat-pictures'
+	$site_domain = 'cat-pictures.com'
 	include nginx
 	include ssh
 	include sudoers
@@ -27,8 +30,21 @@ node 'puppet-client' {
 		hour 	=> '04',
 		minute 	=> '00', 
 	}
+	cron 	{ 'git-pull': 
+		command => '/usr/local/bin/pull-updates',
+		minute 	=> '*/10',
+		hour	=> '*',
+		user	=> 'git',
+	}
+	file	{ '/etc/nginx/conf.d/cat-pictures.conf':
+		content => template('nginx/vhost.conf.erb'),
+		notify	=> Service['nginx'],
+	}
 }
 node 'puppet-client2' { 
+	
+	$site_name = 'dog-pictures'
+	$site_domain = 'dog-pictures.com'
 	include nginx
 	include ssh
 	include sudoers
@@ -63,5 +79,8 @@ node 'puppet-client2' {
 		hour	=> '*',
 		user	=> 'git',
 	}
-
+	file	{ '/etc/nginx/conf.d/dog-pictures.conf':
+		content	=> template('nginx/vhost.conf.erb'),
+		notify	=> Service['nginx'],
+	}
 }
