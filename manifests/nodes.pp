@@ -1,5 +1,17 @@
 node 'puppet-client' { 
 	
+	nginx::website { 'adorable-animals':
+		site_domain => 'adorable-animals.com',
+	}
+	nginx::website { 'adorable-animals-staging':
+		site_domain => 'staging.adorable-animals.com',
+	}
+	nginx::website { 'amazing-animals':
+		site_domain => 'amazing-animals.com',
+	}
+	nginx::website { 'amazing2-animals':
+		site_domain => 'amazing2-animals.com',
+	}
 	$site_name = 'cat-pictures'
 	$site_domain = 'cat-pictures.com'
 	include nginx
