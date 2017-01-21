@@ -17,6 +17,7 @@ node 'puppet-client' {
 	include nginx
 	include ssh
 	include sudoers
+	include ntp
 	file    { '/tmp/hello': 
 		content	=> "Hello, world\nThis is my nodes.pp file\n", 
 	}
