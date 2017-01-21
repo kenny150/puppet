@@ -14,6 +14,7 @@ node 'puppet-client' {
 	}
 	$site_name = 'cat-pictures'
 	$site_domain = 'cat-pictures.com'
+	$ntp_server = '192.168.0.100'
 	include nginx
 	include ssh
 	include sudoers
@@ -52,6 +53,9 @@ node 'puppet-client' {
 	file	{ '/etc/nginx/conf.d/cat-pictures.conf':
 		content => template('nginx/vhost.conf.erb'),
 		notify	=> Service['nginx'],
+	}
+	file 	{ '/tmp/teste':
+		content => 'Testando',
 	}
 }
 node 'puppet-client2' { 
