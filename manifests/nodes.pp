@@ -24,6 +24,7 @@ node 'puppet-client' {
 	include ssh
 	include sudoers
 	include ntp
+	include base
 # Criando um arquivo em /tmp/ com o conteúdlo hello, world ...
 	file    { '/tmp/hello': 
 		content	=> "Hello, world\nThis is my nodes.pp file\n", 
@@ -70,6 +71,11 @@ node 'puppet-client' {
 	file 	{ '/tmp/teste':
 		content => 'Testando',
 	}
+# Criando frase de boas vindas
+	file { '/etc/motd' :
+        	content => "Enjoy the server =)\nPUoppet is on the control here\n",
+        }
+
 } #Encerrando a declaração do node puppet-client2
 
 ##############################################################################################
@@ -123,5 +129,8 @@ node 'puppet-client2' {
 	file	{ '/etc/nginx/conf.d/dog-pictures.conf':
 		content	=> template('nginx/vhost.conf.erb'),
 		notify	=> Service['nginx'],
+	}
+	file { '/etc/motd' :
+        	content => "Enjoy the server =)\nPUoppet is on the control here\n",
 	}
 }# Fim da reclaraçao dos recursos de puppet-client2
