@@ -3,7 +3,7 @@
 class base {
 	case $::osfamily {
 	'RedHat': {
-		notify 	{ "Iniciando ...": }
+		include ntp 
 		package { 'firewalld':
 			ensure	=> present,
 			}
@@ -12,12 +12,11 @@ class base {
 			enable	=> true,
 			require	=> Package['firewalld'],
 			}
-		notify	{ 'Quase lá ...': }	
 		package	{ 'iptables-services':
 			ensure	=> absent,
 			}
 		  } 
-    	 default:  { notify{ 'Sistema operacional é Debian':}
+    	 default:  { notify{ 'Sistema operacional é Debian': }
 }
 }
 }

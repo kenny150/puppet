@@ -1,5 +1,14 @@
-# Receitas para o node puppet-client
+# DEFININDO CONFIGURAÇÃO QUE CADA NODE DEVE RECEBER
+
+
 node 'puppet-client' { 
+
+include base
+
+base::rede { 'unset':
+		nome_interface => 'enp0s8',
+}	
+
 
 # Declarando a definição website que fica dentro do modulo do nginx, passando o valor da variável site_domain que será recebida dentro de website.pp 
 # A variavel site_domain já está declarada em website.pp, por isso ela vem se cifrão
@@ -23,8 +32,7 @@ node 'puppet-client' {
 	include nginx
 	include ssh
 	include sudoers
-	include ntp
-	include base
+#	include base
 # Criando um arquivo em /tmp/ com o conteúdlo hello, world ...
 	file    { '/tmp/hello': 
 		content	=> "Hello, world\nThis is my nodes.pp file\n", 

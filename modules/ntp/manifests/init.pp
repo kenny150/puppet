@@ -1,7 +1,7 @@
-# Gerenciamento NTP
+# CONFIGURA NTP 
 class ntp {
 package { 'ntp':
-	ensure => installed, 
+	ensure => present, 
 }
 file 	{ '/etc/ntp.conf':
 	content => template('ntp/ntp.conf.erb'),
