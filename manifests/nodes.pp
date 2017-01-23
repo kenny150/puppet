@@ -4,35 +4,26 @@
 node 'puppet-client' { 
 
 include base
-
 base::rede { 'unset':
 		nome_interface => 'enp0s8',
 }	
 
-
-# Declarando a definição website que fica dentro do modulo do nginx, passando o valor da variável site_domain que será recebida dentro de website.pp 
-# A variavel site_domain já está declarada em website.pp, por isso ela vem se cifrão
-	nginx::website { 'adorable-animals':
-		site_domain => 'adorable-animals.com',
-	}
-	nginx::website { 'adorable-animals-staging':
-		site_domain => 'staging.adorable-animals.com',
-	}
-	nginx::website { 'amazing-animals':
-		site_domain => 'amazing-animals.com',
-	}
-	nginx::website { 'amazing2-animals':
-		site_domain => 'amazing2-animals.com',
-	}
-# Definindo o valor das variaveis
-	$site_name = 'cat-pictures'
-	$site_domain = 'cat-pictures.com'
-	$ntp_server = '192.168.0.100'
-# Incluindo as classes nginx, ssh, sudoers, ntp	
-	include nginx
-	include ssh
-	include sudoers
-#	include base
+include nginx
+$site_name = 'cat-pictures'
+$site_domain = 'cat-pictures.com'
+$ntp_server = '192.168.0.100'
+nginx::website { 'adorable-animals':
+	site_domain => 'adorable-animals.com',
+}
+nginx::website { 'adorable-animals-staging':
+	site_domain => 'staging.adorable-animals.com',
+}
+nginx::website { 'amazing-animals':
+	site_domain => 'amazing-animals.com',
+}
+nginx::website { 'amazing2-animals':
+	site_domain => 'amazing2-animals.com',
+}
 # Criando um arquivo em /tmp/ com o conteúdlo hello, world ...
 	file    { '/tmp/hello': 
 		content	=> "Hello, world\nThis is my nodes.pp file\n", 
