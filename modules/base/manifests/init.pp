@@ -32,13 +32,13 @@ file 	{ '/etc/resolv.conf':
 	owner	=> 'root',
 	group	=> 'root',
 	}
-file 	{ '/etc/yum.repos.d/repositorio.repo':
-	ensure 	=> present,
-	source	=> 'puppet:///modules/base/repositorio.repo',
-	mode	=> 0664,
-	owner	=> 'root',
-	group	=> 'root',
-	}
+#file 	{ '/etc/yum.repos.d/repositorio.repo':
+#	ensure 	=> present,
+#	source	=> 'puppet:///modules/base/repositorio.repo',
+#	mode	=> 0664,
+#	owner	=> 'root',
+#	group	=> 'root',
+#	}
 file	{ '/etc/nsswitch.conf':
 	ensure	=> present,
 	source	=> 'puppet:///modules/base/nsswitch.conf',
