@@ -24,25 +24,30 @@ nginx::website { 'amazing-animals':
 nginx::website { 'amazing2-animals':
 	site_domain => 'amazing2-animals.com',
 }
-# Criando um arquivo em /tmp/ com o conteúdlo hello, world ...
-	file    { '/tmp/hello': 
-		content	=> "Hello, world\nThis is my nodes.pp file\n", 
+
+ssh::newuser	{ 'kalves': 
+	comment 	=> "Kennedy Alves", 
+		}
+ssh::newuser	{ 'testando':
+	comment		=> "Usuario teste puppet",
+		}	
+
+ssh::users { 'kalves':
+                key     => "AAAAB3NzaC1yc2EAAAADAQABAAABAQCpwAhX/pnIc3V66wU/nOlCwwI2iuB5E/+JE8+t11daeUOXEWTcS1/XStpXYCbJmALS+xg1TznRsUf1VFSdjgdlfKBCXyyvY/eiwDHz24CmqNLmBlNL6BSYnqTj5iPcR8eOWt4NZgu9G4tfOScLez2CsdIEKvO60ZnkFjPOZ5Wm+WvXbP7z0FGqBY2rwVxc7T0EYloafeZR6/aAeUkvA6DHrgIRyAKBp3cyT+M6nCU5whtWt1B062PtDdpX/VCTxdPqNCZaD1uVmG55yA1SC8B4iLABTv2V6RXkhRpnZUekfMs+i1SLl/st4rUOAP2BVTFFeyApzVqadmlTkvZtHsy1",
+        }
+ssh::users { 'git':
+                key     => "AAAAB3NzaC1yc2EAAAADAQABAAABAQCa0sRUIlc8bpwTTWbfovipRF8SHs+A3kikDc50egIbNCWBHGWc6JhLqiDd5EBaYHOBg3z39pdkTPxfwSR1K4FO5Ieo/cQdhY1u2OXyxMX9wGt1J7+74w/XLuHwTclXrXeOyz0CXBbgArdhPa9Nw0eZ/Y8kzmwugQSfDBUCQcg5NWeOFfMIx/qX62oPa1U/J3Pl9Xs2LUTuMtS0UBg5zddm9TtbmMtdR9t9TyymN9p1gAYVeNNihIOjQ+5GN4cBmBLwpaQWa3119UEpXlLzTi6YyRBLMubJlznXcvrbXbIaDR7mlufngE0UcQ+MIIuMInEHE5ICeCr6tVcoztBcuJpf",
 	}
-# Criando um usuário chamado kalves, definido a home e permitindo que o puppet crie o diretório caso ele nao exista (managehome)
-	user 	{ 'kalves': 
-		ensure 		=> present, 
-		comment 	=> "Kennedy Alves", 
-		home 		=> '/home/kalves', 
-		managehome 	=> true,
-	}
+##############################################################
 # Dando acesso via chave para o usuário
-	ssh_authorized_key { 'kalves': 
-		user 	=> 'kalves',
-		type 	=> 'rsa',
-		key 	=> "AAAAB3NzaC1yc2EAAAADAQABAAABAQCpwAhX/pnIc3V66wU/nOlCwwI2iuB5E/+JE8+t11daeUOXEWTcS1/XStpXYCbJmALS+xg1TznRsUf1VFSdjgdlfKBCXyyvY/eiwDHz24CmqNLmBlNL6BSYnqTj5iPcR8eOWt4NZgu9G4tfOScLez2CsdIEKvO60ZnkFjPOZ5Wm+WvXbP7z0FGqBY2rwVxc7T0EYloafeZR6/aAeUkvA6DHrgIRyAKBp3cyT+M6nCU5whtWt1B062PtDdpX/VCTxdPqNCZaD1uVmG55yA1SC8B4iLABTv2V6RXkhRpnZUekfMs+i1SLl/st4rUOAP2BVTFFeyApzVqadmlTkvZtHsy1", 
-	}
-	#ssh_authorized_key { 'kalves': user => 'kalves', type => 'rsa', key => "", }
-        #Para remover o acesso temporariamente do usuário
+#	ssh_authorized_key { 'kalves': 
+#		user 	=> 'kalves',
+#		type 	=> 'rsa',
+#		key 	=> "AAAAB3NzaC1yc2EAAAADAQABAAABAQCpwAhX/pnIc3V66wU/nOlCwwI2iuB5E/+JE8+t11daeUOXEWTcS1/XStpXYCbJmALS+xg1TznRsUf1VFSdjgdlfKBCXyyvY/eiwDHz24CmqNLmBlNL6BSYnqTj5iPcR8eOWt4NZgu9G4tfOScLez2CsdIEKvO60ZnkFjPOZ5Wm+WvXbP7z0FGqBY2rwVxc7T0EYloafeZR6/aAeUkvA6DHrgIRyAKBp3cyT+M6nCU5whtWt1B062PtDdpX/VCTxdPqNCZaD1uVmG55yA1SC8B4iLABTv2V6RXkhRpnZUekfMs+i1SLl/st4rUOAP2BVTFFeyApzVqadmlTkvZtHsy1", 
+#	
+#	#ssh_authorized_key { 'kalves': user => 'kalves', type => 'rsa', key => "", }
+#       #Para remover o acesso temporariamente do usuário
+##############################################################
 # Executando comando apenas para teste do resource type
 	exec	{ 'Executando comando':
 		command => 'echo Executei este comando', 
