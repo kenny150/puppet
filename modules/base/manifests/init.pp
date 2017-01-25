@@ -28,31 +28,31 @@ file 	{ '/etc/hosts':
 file 	{ '/etc/resolv.conf':
 	ensure	=> present,
 	source	=> 'puppet:///modules/base/resolv.conf',
-	mode 	=> 0644,
+	mode 	=> 0664,
 	owner	=> 'root',
 	group	=> 'root',
 	}
 file 	{ '/etc/yum.repos.d/repositorio.repo':
 	ensure 	=> present,
 	source	=> 'puppet:///modules/base/repositorio.repo',
-	mode	=> 0644,
+	mode	=> 0664,
 	owner	=> 'root',
 	group	=> 'root',
 	}
 file	{ '/etc/nsswitch.conf':
 	ensure	=> present,
 	source	=> 'puppet:///modules/base/nsswitch.conf',
-	mode	=> 0644,
+	mode	=> 0664,
 	owner	=> 'root',
 	group	=> 'root',	
 	}
-#file	{ '/var/git/puppet/.git/config':
-#	ensure	=> present,
-#	source	=> 'puppet:///modules/base/git.config',
-#	user	=> 'git',
-#	group	=> 'git',
-#	mode	=> 0755,
-#	}
+file	{ '/var/git/puppet/.git/config':
+	ensure	=> present,
+	source	=> 'puppet:///modules/base/git.config',
+	mode	=> 0664,	
+	owner	=> 'git',
+	group	=> 'git',
+	}	
 } 
 default:  { notify{ 'Sistema operacional é Debian': }
 	}
