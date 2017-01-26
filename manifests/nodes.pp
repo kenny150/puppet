@@ -1,7 +1,17 @@
 # DEFININDO CONFIGURAÇÃO QUE CADA NODE DEVE RECEBER
 
-
 node 'puppet-client' { 
+
+if $ipaddress =~ /192.168.*/ {
+	$environment = 'production'
+	notify	{ 'Classe C': }
+}
+elsif $ipaddress =~ /172.16.*/ {
+	$environment = 'stagging'
+}
+else { 
+	$environment = 'dev'
+}
 
 include base
 base::rede { 'unset':
