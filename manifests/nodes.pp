@@ -4,30 +4,33 @@ node 'puppet-client' {
 
 if $ipaddress =~ /192.168.*/ {
 	$environment = 'production'
-	notify	{ 'Classe C': }
+	notify	{ "Ambiente = $environment": }
 }
 elsif $ipaddress =~ /172.16.*/ {
 	$environment = 'stagging'
+	notify	{ "Ambiente = $environment": }
 }
 else { 
 	$environment = 'dev'
+	notify	{ "Ambiente = $environment": }
 }
 
 include base
 base::rede { 'unset':
-		nome_interface => 'enp0s8',
+	nome_interface => 'enp0s8',
 }	
+
+if $hostname =~ /web-*/ {
+	include nginx
+}
+else { notify { "Hostname = $hostname": }
+} 
 
 include nginx
 
 $site_name = 'cat-pictures'
 $site_domain = 'cat-pictures.com'
 $ntp_server = '192.168.0.100'
-
-file	{ '/etc/nginx/conf.d/cat-pictures.conf':
-	content => template('nginx/vhost.conf.erb'),
-        notify  => Service['nginx'],
-        }
 
 nginx::website { 'adorable-animals':
 	site_domain => 'adorable-animals.com',
@@ -41,13 +44,18 @@ nginx::website { 'amazing-animals':
 nginx::website { 'amazing2-animals':
 	site_domain => 'amazing2-animals.com',
 }
+file    { '/etc/nginx/conf.d/cat-pictures.conf':
+        content => template('nginx/vhost.conf.erb'),
+        notify  => Service['nginx'],
+}
+
 
 ssh::newuser	{ 'kalves': 
 	comment 	=> "Kennedy Alves", 
-		}
+}
 ssh::newuser	{ 'testando':
 	comment		=> "Usuario teste puppet",
-		}	
+}	
 
 ssh::users { 'kalves':
                 key     => "AAAAB3NzaC1yc2EAAAADAQABAAABAQCpwAhX/pnIc3V66wU/nOlCwwI2iuB5E/+JE8+t11daeUOXEWTcS1/XStpXYCbJmALS+xg1TznRsUf1VFSdjgdlfKBCXyyvY/eiwDHz24CmqNLmBlNL6BSYnqTj5iPcR8eOWt4NZgu9G4tfOScLez2CsdIEKvO60ZnkFjPOZ5Wm+WvXbP7z0FGqBY2rwVxc7T0EYloafeZR6/aAeUkvA6DHrgIRyAKBp3cyT+M6nCU5whtWt1B062PtDdpX/VCTxdPqNCZaD1uVmG55yA1SC8B4iLABTv2V6RXkhRpnZUekfMs+i1SLl/st4rUOAP2BVTFFeyApzVqadmlTkvZtHsy1",
