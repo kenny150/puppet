@@ -10,14 +10,14 @@ $site_name = $name
 
 # Declara que dentro de conf.d/ deve haver o um arquivo com o valor da variavel .conf , buscando do template
 file { "/etc/nginx/conf.d/${site_name}.conf":
-	content => template('nginx/vhost.conf.erb'),
-	notify	=> Service['nginx'],
+  content => template('nginx/vhost.conf.erb'),
+  notify  => Service['nginx'],
 }
 
 # Deve criar o diretório /var/www/ de acordo com o nome da variavel
 file { "/var/www/${name}":
-	ensure 	=> 'directory',
-	recurse	=> true,
+  ensure  => 'directory',
+  recurse => true,
 }
 
 }

@@ -1,3 +1,3 @@
-# Importando o arquivo nodespp
+# Importando o arquivo nodes.pp
 import 'nodes.pp'
 
